@@ -8,6 +8,10 @@ packages = [{include = "zonnecel", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pyvisa = "^1.14.1"
+pyserial = "^3.5"
+pyvisa-py = "^0.7.1"
+matplotlib = "^3.8.2"
 
 
 [build-system]
