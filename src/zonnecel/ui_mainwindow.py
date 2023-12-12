@@ -86,6 +86,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout)
 
+        self.comboBox2 = QComboBox(self.centralwidget)
+        self.comboBox2.setObjectName(u"comboBox2")
+
+        self.verticalLayout_4.addWidget(self.comboBox2)
+
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_2)
+
         self.comboBox = QComboBox(self.centralwidget)
         self.comboBox.setObjectName(u"comboBox")
 

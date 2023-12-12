@@ -65,6 +65,12 @@
      </layout>
     </item>
     <item>
+     <widget class="QComboBox" name="comboBox2"/>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+    </item>
+    <item>
      <widget class="QComboBox" name="comboBox"/>
     </item>
     <item>

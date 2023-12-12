@@ -27,13 +27,15 @@ class UserInterface(QtWidgets.QMainWindow):
 
         # when these buttons are pressed, these functions are excecuted
         self.ui.comboBox.addItems(list_devices())
+        # plot_list = self.plot_IU, self.plot_PR
+        self.ui.comboBox2.addItems(["P-R", "U-I"])
+        self.ui.comboBox2.currentTextChanged.connect(self.plot_IU)
         self.ui.start_button.clicked.connect(self.plot_IU)
 
         self.ui.save_button.clicked.connect(self.save_data)
 
     @Slot()
     def plot_IU(self):
-        """Makes a graph of voltages and currents with errorbars"""
 
         # current device is used in the graph
         self.experiment = ExperimentZonnecel(self.ui.comboBox.currentText())
