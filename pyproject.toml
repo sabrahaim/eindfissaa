@@ -7,12 +7,18 @@ readme = "README.md"
 packages = [{include = "zonnecel", from = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.13"
 pyvisa = "^1.14.1"
 pyserial = "^3.5"
 pyvisa-py = "^0.7.1"
 matplotlib = "^3.8.2"
+pyside6 = "^6.6.1"
 
+[tool.poetry.scripts]
+IU = "zonnecel.GUI:main"
+
+[tool.poetry.group.dev.dependencies]
+nsp2visasim = "^1.3.1"
 
 [build-system]
 requires = ["poetry-core"]
