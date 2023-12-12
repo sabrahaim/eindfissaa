@@ -28,18 +28,21 @@ class UserInterface(QtWidgets.QMainWindow):
         # when these buttons are pressed, these functions are excecuted
         self.ui.comboBox.addItems(list_devices())
         # plot_list = self.plot_IU, self.plot_PR
-        self.ui.comboBox2.addItems(["P-R", "U-I"])
-        self.ui.comboBox2.currentTextChanged.connect(self.plot_IU)
-        self.ui.start_button.clicked.connect(self.plot_IU)
+        self.ui.comboBox2.addItems(["U-I", "P-R"])
+        self.ui.comboBox2.currentTextChanged.connect(self.plot)
+        self.ui.start_button.clicked.connect(self.meting)
 
         self.ui.save_button.clicked.connect(self.save_data)
 
     @Slot()
-    def plot_IU(self):
+    def plot(self):
+        if self.ui.comboBox2.currentText() == "P-R":
+            self.ui.start_button.clicked.connect(self.plot_PR)
+        else:
+            self.ui.start_button.clicked.connect(self.plot_IU)
 
-        # current device is used in the graph
+    def meting(self):
         self.experiment = ExperimentZonnecel(self.ui.comboBox.currentText())
-        self.ui.PlotWidget.clear()
 
         # start, stop and amount of measurements can be manually altered in the graph
         (
@@ -52,6 +55,24 @@ class UserInterface(QtWidgets.QMainWindow):
             self.ui.stop.value(),
             self.ui.measurements.value(),
         )
+
+        # start, stop and amount of measurements can be manually altered in the graph
+        (
+            self.mean_powers,
+            self.mean_resistances,
+            self.error_powers,
+            self.error_resistances,
+        ) = self.experiment.PR(
+            self.ui.start.value(),
+            self.ui.stop.value(),
+            self.ui.measurements.value(),
+        )
+        self.plot_IU()
+
+    def plot_IU(self):
+        self.ui.PlotWidget.clear()
+
+        # current device is used in the graph
         self.ui.PlotWidget.plot(
             self.mean_voltages, self.mean_currents, symbol="o", pen=None
         )
@@ -67,23 +88,9 @@ class UserInterface(QtWidgets.QMainWindow):
         # self.experiment.close_device()
 
     def plot_PR(self):
-        """Makes a graph of voltages and currents with errorbars"""
-
-        # current device is used in the graph
-        self.experiment = ExperimentZonnecel(self.ui.comboBox.currentText())
         self.ui.PlotWidget.clear()
 
-        # start, stop and amount of measurements can be manually altered in the graph
-        (
-            self.mean_powers,
-            self.mean_resistances,
-            self.error_powers,
-            self.error_resistances,
-        ) = self.experiment.PR(
-            self.ui.start.value(),
-            self.ui.stop.value(),
-            self.ui.measurements.value(),
-        )
+        # current device is used in the graph
         self.ui.PlotWidget.plot(
             self.mean_powers, self.mean_resistances, symbol="o", pen=None
         )
